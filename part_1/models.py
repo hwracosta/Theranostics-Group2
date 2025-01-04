@@ -40,13 +40,13 @@ class PhysicalExam(models.Model):
     #slug = AutoSlugField(populate_from='id', unique=True, blank=True, null=True)
     date_recorded = models.DateField(default=datetime.now)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, blank=True, null=True)
-    ecog_score = models.IntegerField(blank=True, validators= [MinValueValidator(0, message="Value cannot be negative"), MaxValueValidator(5, message="Value cannot be above 5")])
+    ecog_score = models.IntegerField(blank=True, validators= [MinValueValidator(0, message="Value should be 0-5"), MaxValueValidator(5, message="Value should be 0-5")])
     height = models.IntegerField(blank=True, validators= [MinValueValidator(1, message="Value cannot be zero or negative.")])
     weight = models.DecimalField(max_digits=5, decimal_places=2,blank=True, validators= [MinValueValidator(1, message="Value cannot be zero or negative.")])
     bmi = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)    
     bp = models.CharField(max_length=120, blank=True) # Blood Pressure
     hr = models.IntegerField(blank=True, validators= [MinValueValidator(1, message="Value cannot be zero or negative.")]) # Heart Rate
-    pain_score = models.IntegerField(blank=True, validators= [MinValueValidator(0, message="Value cannot be negative"), MaxValueValidator(10, message="Value cannot be above 10")])
+    pain_score = models.IntegerField(blank=True, validators= [MinValueValidator(0, message="Value should be 0-10"), MaxValueValidator(10, message="Value should be 0-10")])
     local_symptoms = models.CharField(max_length=300, blank=True)
     systemic_symptoms = models.CharField(max_length=300, blank=True)
 
