@@ -27,26 +27,27 @@ class EditPatient(ModelForm):
 class EditPhysicalExam(ModelForm):
     class Meta:
         model = PhysicalExam
-        fields = ['ecog_score', 'height', 'weight', 'bmi', 'bp', 'hr', 'pain_score', 'local_symptoms', 'systemic_symptoms']
+        fields = ['ecog_score', 'height', 'weight', 'bp', 'hr', 'pain_score', 'local_symptoms', 'systemic_symptoms']
         labels = {
             'height': 'Height(cm)',
             'weight': 'Weight(kg)',
-            'bmi': 'BMI',
             'bp' : 'Blood Pressure(mmHg)',
             'hr' : 'Heart Rate(bpm)'
         }
+        exclude = ['bmi']
 
 class AddPhysicalExam(ModelForm):
     class Meta:
         model = PhysicalExam
-        fields = ['ecog_score', 'height', 'weight', 'bmi', 'bp', 'hr', 'pain_score', 'local_symptoms', 'systemic_symptoms']
+        fields = ['ecog_score', 'height', 'weight', 'bp', 'hr', 'pain_score', 'local_symptoms', 'systemic_symptoms']
         labels = {
             'height': 'Height(cm)',
             'weight': 'Weight(kg)',
-            'bmi': 'BMI',
             'bp' : 'Blood Pressure(mmHg)',
             'hr' : 'Heart Rate(bpm)'
         }
+        exclude = ['bmi']
+
 
 class AddScreening(ModelForm):
     class Meta:
