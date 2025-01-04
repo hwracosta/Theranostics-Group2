@@ -351,15 +351,19 @@ def addScreening(request, slug):
 
 @login_required
 def editScreening(request, slug, id):
-    physical_exam = Screening.objects.get(id=id)
+    screening = Screening.objects.get(id=id)
     if request.method == "POST":
-        form = EditScreening(request.POST, instance=physical_exam)
+        form = EditScreening(request.POST, instance=screening)
+        
         if form.is_valid():
             form.save()
-        return HttpResponseRedirect(reverse_lazy('patientDetails', kwargs={"slug":slug}))
+            return HttpResponseRedirect(reverse_lazy('patientDetails', kwargs={"slug": slug}))
+        else:
+            context = {'form': form, 'slug': slug, 'id': id}
+            return render(request, "part_1/edit-screening.html", context)
     else:
-        form = EditScreening(instance=physical_exam)
-        context = {'form' : form}
+        form = EditScreening(instance=screening)
+        context = {'form': form, 'slug': slug, 'id': id}
         return render(request, "part_1/edit-screening.html", context)
 
 @login_required
@@ -528,12 +532,16 @@ def editFollowUp(request, slug, id):
     follow_up = FollowUp.objects.get(id=id)
     if request.method == "POST":
         form = EditFollowUp(request.POST, instance=follow_up)
+
         if form.is_valid():
             form.save()
-        return HttpResponseRedirect(reverse_lazy('patientDetails', kwargs={"slug":slug}))
+            return HttpResponseRedirect(reverse_lazy('patientDetails', kwargs={"slug": slug}))
+        else:
+            context = {'form': form, 'slug': slug, 'id': id}
+            return render(request, "part_4/edit-follow-up.html", context)
     else:
         form = EditFollowUp(instance=follow_up)
-        context = {'form' : form}
+        context = {'form': form, 'slug': slug, 'id': id}
         return render(request, "part_4/edit-follow-up.html", context)
 
 @login_required
