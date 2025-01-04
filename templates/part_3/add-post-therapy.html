@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
-<!-- partial:index.partial.html -->
+
 {% block content %}
 <div class='dashboard'>
-
     <div class='dashboard-app'>
         <div class='dashboard-content'>
             <div class='container'>
@@ -13,34 +12,61 @@
                         <h1>POST-THERAPY</h1>
                         <br>
                         <div>
-                        <form method="POST" action ="" enctype="multipart/form-data">
-                            <table>
-                                <tr>
-                                    {% csrf_token %}
-                                    <td>{{ form.date_of_post_therapy | as_crispy_field }}</td>
-                                    <td>{{ form.post_therapy_scan_hours | as_crispy_field }}</td>
-                                </tr>
-                                <tr>
-                                    <td>{{ form.with_spect_ct | as_crispy_field }}</td>
-                                    <td>{{ form.lesions | as_crispy_field }}</td>
-                                </tr>
-                                <tr>
-                                    <td>{{ form.bone_lesion_details | as_crispy_field }}</td>
-                                    <td>{{ form.lesion_image | as_crispy_field }}</td>
-                                </tr>
-                            </table> 
+                            <form method="POST" action="" enctype="multipart/form-data">
+                                {% csrf_token %}
 
-                            <div><br>
-                                <span>Dosimetry</span>
-                                <div>{{ form.salivary_gland | as_crispy_field }}</div>
-                                <div>{{ form.kidney_left | as_crispy_field }}</div>
-                                <div>{{ form.kidney_right | as_crispy_field }}</div>
-                                <div>{{ form.dosimetry_image | as_crispy_field }}</div>
-                            </div>
-                            <button style="margin-top: 20px;"class="btn btn-success" type="submit">Save Changes</button>
-                        </form>
+                                <!-- Display Form Errors -->
+                                {% if form.errors %}
+                                <div class="alert alert-danger">
+                                    {{ form.non_field_errors }}
+                                    {% for field in form %}
+                                    {% for error in field.errors %}
+                                    <p>{{ field.label }}: {{ error }}</p>
+                                    {% endfor %}
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+
+                                <!-- Form Fields -->
+                                <table>
+                                    <tr>
+                                        <td>{{ form.date_of_post_therapy|as_crispy_field }}</td>
+                                        <td>{{ form.post_therapy_scan_hours|as_crispy_field }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ form.with_spect_ct|as_crispy_field }}</td>
+                                        <td>{{ form.lesions|as_crispy_field }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ form.bone_lesion_details|as_crispy_field }}</td>
+                                    </tr>
+                                </table>
+
+                                <div>
+                                    <h4>Upload Lesion Images</h4>
+                                    <input type="file" name="lesion_images" multiple accept="image/*,application/pdf">
+                                    <small class="form-text text-muted">You can upload multiple lesion images (PNG, JPG, JPEG, GIF, PDF).</small>
+                                </div>
+
+                                <div>
+                                    <h4>Upload Dosimetry Images</h4>
+                                    <input type="file" name="dosimetry_images" multiple accept="image/*,application/pdf">
+                                    <small class="form-text text-muted">You can upload multiple dosimetry images (PNG, JPG, JPEG, GIF, PDF).</small>
+                                </div>
+
+                                <br>
+                                <div>
+                                    <span>Dosimetry</span>
+                                    <div>{{ form.salivary_gland|as_crispy_field }}</div>
+                                    <div>{{ form.kidney_left|as_crispy_field }}</div>
+                                    <div>{{ form.kidney_right|as_crispy_field }}</div>
+                                </div>
+                                <button style="margin-top: 20px;" type="submit" class="btn btn-success">Save Changes</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-            </div>        
+            </div>
         </div>
     </div>
 </div>

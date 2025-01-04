@@ -424,10 +424,23 @@
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <h5>Lesion Image</h5> 
-                                            <img src="{{ post_therapy.lesion_image.url }}" alt="" width="200" style="border-radius: 5px; border: solid maroon;">
-                                            <h5>Dosimetry Image</h5>
-                                            <img src="{{ post_therapy.dosimetry_image.url }}" alt="" width="200" style="border-radius: 5px; border: solid maroon;">
+                                            <h5>Lesion Images</h5>
+                                            {% if post_therapy.lesion_images.all %}
+                                            {% for lesion_image in post_therapy.lesion_images.all %}
+                                            <img src="{{ lesion_image.image.url }}" alt="Lesion Image" width="200" style="border-radius: 5px; border: solid maroon; margin: 5px;">
+                                            {% endfor %}
+                                            {% else %}
+                                            <p>No lesion images available.</p>
+                                            {% endif %}
+
+                                            <h5>Dosimetry Images</h5>
+                                            {% if post_therapy.dosimetry_images.all %}
+                                            {% for dosimetry_image in post_therapy.dosimetry_images.all %}
+                                            <img src="{{ dosimetry_image.image.url }}" alt="Dosimetry Image" width="200" style="border-radius: 5px; border: solid maroon; margin: 5px;">
+                                            {% endfor %}
+                                            {% else %}
+                                            <p>No dosimetry images available.</p>
+                                            {% endif %}
                                             <br>
                                         </div>
                                     </div>
