@@ -386,14 +386,19 @@ def addPhysicalExam(request, slug):
 @login_required
 def editPhysicalExam(request, slug, id):
     physical_exam = PhysicalExam.objects.get(id=id)
+    
     if request.method == "POST":
         form = EditPhysicalExam(request.POST, instance=physical_exam)
         if form.is_valid():
             form.save()
-        return HttpResponseRedirect(reverse_lazy('patientDetails', kwargs={"slug":slug}))
+            return HttpResponseRedirect(reverse_lazy('patientDetails', kwargs={"slug": slug}))
+        else:
+            context = {'form': form, 'slug': slug, 'id': id}
+
+            return render(request, "part_1/edit-physical-exam.html", context)
     else:
         form = EditPhysicalExam(instance=physical_exam)
-        context = {'form' : form}
+        context = {'form': form, 'slug': slug, 'id': id}
         return render(request, "part_1/edit-physical-exam.html", context)
 
 @login_required 

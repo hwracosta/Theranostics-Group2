@@ -19,10 +19,22 @@
                                     {% csrf_token %}
                                     <td>{{ form.height | as_crispy_field }}</td>
                                     <td>{{ form.weight | as_crispy_field }}</td>
-                                    <td>{{ form.bmi | as_crispy_field }}</td>
+                                    <td>
+                                        <label for="bmi">BMI</label>
+                                        <input type="text" id="bmi" value="{{ object.bmi }}" readonly class="form-control" style="margin-bottom: 16px">
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>{{ form.bp | as_crispy_field }}</td>
+                                    <td>
+                                        {{ form.bp | as_crispy_field }}
+                                        {% if form.bp.errors %}
+                                            <ul class="error-list">
+                                                {% for error in form.bp.errors %}
+                                                    <li>{{ error }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    </td>
                                     <td>{{ form.hr | as_crispy_field }}</td>
                                 </tr>
                                 <tr>
@@ -41,4 +53,30 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('input', function() {
+        const heightInput = document.getElementById('id_height');
+        const weightInput = document.getElementById('id_weight');
+        const bmiField = document.getElementById('bmi');
+    
+        if (heightInput && weightInput && bmiField) {
+            const height = parseFloat(heightInput.value) / 100; 
+            const weight = parseFloat(weightInput.value);
+    
+            if (height > 0 && weight > 0) {
+                const bmi = (weight / (height * height)).toFixed(2); 
+                bmiField.value = bmi; 
+            } else {
+                bmiField.value = ''; 
+            }
+        }
+    });
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('id_bp').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^0-9\/]/g, '');  
+        });
+    });
+</script>
 {% endblock content %}

@@ -4,6 +4,7 @@ from django.utils.text import slugify
 from django.template.defaultfilters import slugify
 from datetime import datetime
 from django.core.validators import MinValueValidator, MaxValueValidator
+from decimal import Decimal
 
 class Patient(models.Model):
     TYPE_TREATMENT = (
@@ -42,12 +43,22 @@ class PhysicalExam(models.Model):
     ecog_score = models.IntegerField(blank=True, validators= [MinValueValidator(0, message="Value cannot be negative"), MaxValueValidator(5, message="Value cannot be above 5")])
     height = models.IntegerField(blank=True, validators= [MinValueValidator(1, message="Value cannot be zero or negative.")])
     weight = models.DecimalField(max_digits=5, decimal_places=2,blank=True, validators= [MinValueValidator(1, message="Value cannot be zero or negative.")])
-    bmi = models.IntegerField(blank=True) # Body Mass Index
+    bmi = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)    
     bp = models.CharField(max_length=120, blank=True) # Blood Pressure
     hr = models.IntegerField(blank=True, validators= [MinValueValidator(1, message="Value cannot be zero or negative.")]) # Heart Rate
     pain_score = models.IntegerField(blank=True, validators= [MinValueValidator(0, message="Value cannot be negative"), MaxValueValidator(10, message="Value cannot be above 10")])
     local_symptoms = models.CharField(max_length=300, blank=True)
     systemic_symptoms = models.CharField(max_length=300, blank=True)
+
+    def save(self, *args, **kwargs):
+   
+        if self.height and self.weight and self.height > 0:
+            height_in_meters = Decimal(self.height) / 100 
+            self.bmi = self.weight / (height_in_meters ** 2)  
+        else:
+            self.bmi = None 
+            
+        super().save(*args, **kwargs)
 
 
 class Screening(models.Model):
