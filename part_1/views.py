@@ -485,10 +485,13 @@ def editPostTherapy(request, slug, id):
         form = EditPostTherapy(request.POST, instance=post_therapy)
         if form.is_valid():
             form.save()
-        return HttpResponseRedirect(reverse_lazy('patientDetails', kwargs={"slug":slug}))
+            return HttpResponseRedirect(reverse_lazy('patientDetails', kwargs={"slug": slug}))
+        else:
+            context = {'form': form, 'slug': slug, 'id': id}
+            return render(request, "part_3/edit-post-therapy.html", context)
     else:
         form = EditPostTherapy(instance=post_therapy)
-        context = {'form' : form}
+        context = {'form': form, 'slug': slug, 'id': id}
         return render(request, "part_3/edit-post-therapy.html", context)
 
 @login_required
