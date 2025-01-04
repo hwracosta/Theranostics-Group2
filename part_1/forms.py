@@ -45,7 +45,7 @@ class EditPhysicalExam(ModelForm):
         systolic, diastolic = map(int, bp.split('/'))
 
         if systolic <= diastolic:
-            raise forms.ValidationError("Systolic must be greater than Diastolic.")
+            raise forms.ValidationError("Systolic BP must be greater than Diastolic BP.")
         
         return bp  
     
