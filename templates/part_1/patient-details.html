@@ -35,8 +35,6 @@
                     <a href="{% url 'addPhysicalExam' patient.slug %}" class="mr-1"><button href="{% url 'addPhysicalExam' patient.slug %}" style="margin-top: 20px;"class="btn btn-success" type="button">Add Physical Exam</button></a>
                 {% endif %}
                 {% if physical_exam %}
-                    slug: {{ physical_exam.slug }}
-                    <br>
                     Date of Physical Exam: {{ physical_exam.date_recorded }}
                     <br>
                     Height: {{physical_exam.height}}
