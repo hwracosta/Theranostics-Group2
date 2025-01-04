@@ -320,13 +320,15 @@ def editPatient(request, slug):
 
         if form.is_valid():
             form.save()
-
-        return HttpResponseRedirect(reverse_lazy('patientList'))
+            return HttpResponseRedirect(reverse_lazy('patientList'))
+        else:
+            context = {'form': form}
+            return render(request, "part_1/edit-patient.html", context)
     else:
         form = EditPatient(instance=patient)
-
-        context = {'form' : form}
+        context = {'form': form}
         return render(request, "part_1/edit-patient.html", context)
+
 
 @login_required
 def deletePatient(request, pk):
