@@ -436,13 +436,18 @@ def editTherapy(request, slug, id):
     therapy = Therapy.objects.get(id=id)
     if request.method == "POST":
         form = EditTherapy(request.POST, instance=therapy)
+        
         if form.is_valid():
             form.save()
-        return HttpResponseRedirect(reverse_lazy('patientDetails', kwargs={"slug":slug}))
+            return HttpResponseRedirect(reverse_lazy('patientDetails', kwargs={"slug": slug}))
+        else:
+            context = {'form': form, 'slug': slug, 'id': id}
+            return render(request, "part_2/edit-therapy.html", context)
     else:
         form = EditTherapy(instance=therapy)
-        context = {'form' : form}
+        context = {'form': form, 'slug': slug, 'id': id}
         return render(request, "part_2/edit-therapy.html", context)
+
 
 @login_required
 def deleteTherapy(request, slug, id):
