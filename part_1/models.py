@@ -41,7 +41,7 @@ class PhysicalExam(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, blank=True, null=True)
     ecog_score = models.IntegerField(blank=True, validators= [MinValueValidator(0, message="Value cannot be negative"), MaxValueValidator(5, message="Value cannot be above 5")])
     height = models.IntegerField(blank=True, validators= [MinValueValidator(1, message="Value cannot be zero or negative.")])
-    weight = models.FloatField(blank=True, validators= [MinValueValidator(1, message="Value cannot be zero or negative.")])
+    weight = models.DecimalField(max_digits=5, decimal_places=2,blank=True, validators= [MinValueValidator(1, message="Value cannot be zero or negative.")])
     bmi = models.IntegerField(blank=True) # Body Mass Index
     bp = models.CharField(max_length=120, blank=True) # Blood Pressure
     hr = models.IntegerField(blank=True, validators= [MinValueValidator(1, message="Value cannot be zero or negative.")]) # Heart Rate
@@ -58,18 +58,18 @@ class Screening(models.Model):
     )
     id = models.AutoField(primary_key=True)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='screening_patient')
-    psa = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
-    creatinine = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
-    wbc = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
-    rbc = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
-    hemoglobin = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
-    hematocrit = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
-    platelet = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
-    lactate_hydrogenase = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
-    alkaline_phosphatase = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
-    sgpt = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
-    sgot = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
-    bilirubins = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    psa = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, validators= [MinValueValidator(0, message="Value cannot be negative")])
+    creatinine = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, validators= [MinValueValidator(0, message="Value cannot be negative")])
+    wbc = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, validators= [MinValueValidator(0, message="Value cannot be negative")])
+    rbc = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, validators= [MinValueValidator(0, message="Value cannot be negative")])
+    hemoglobin = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, validators= [MinValueValidator(0, message="Value cannot be negative")])
+    hematocrit = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, validators= [MinValueValidator(0, message="Value cannot be negative")])
+    platelet = models.IntegerField(blank=True, null=True, validators= [MinValueValidator(0, message="Value cannot be negative")])
+    lactate_hydrogenase = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, validators= [MinValueValidator(0, message="Value cannot be negative")])
+    alkaline_phosphatase = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, validators= [MinValueValidator(0, message="Value cannot be negative")])
+    sgpt = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, validators= [MinValueValidator(0, message="Value cannot be negative")])
+    sgot = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, validators= [MinValueValidator(0, message="Value cannot be negative")])
+    bilirubins = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, validators= [MinValueValidator(0, message="Value cannot be negative")])
 
     SALIVARY_GLAND_STATUS = (
         ('Normal', 'Normal'),
