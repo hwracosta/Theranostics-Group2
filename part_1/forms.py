@@ -1,3 +1,4 @@
+import re
 from .models import *
 from django import forms
 from django.forms import ModelChoiceField, ModelForm
@@ -35,7 +36,19 @@ class EditPhysicalExam(ModelForm):
             'hr' : 'Heart Rate(bpm)'
         }
         exclude = ['bmi']
+    
+    def clean_bp(self):
+        bp = self.cleaned_data['bp']
+        if not re.match(r'^\d+/\d+$', bp):
+            raise forms.ValidationError("Enter in systolic/diastolic form (e.g., 120/80).")
 
+        systolic, diastolic = map(int, bp.split('/'))
+
+        if systolic <= diastolic:
+            raise forms.ValidationError("Systolic must be greater than Diastolic.")
+        
+        return bp  
+    
 class AddPhysicalExam(ModelForm):
     class Meta:
         model = PhysicalExam
@@ -48,7 +61,17 @@ class AddPhysicalExam(ModelForm):
         }
         exclude = ['bmi']
 
+    def clean_bp(self):
+        bp = self.cleaned_data['bp']
+        if not re.match(r'^\d+/\d+$', bp):
+            raise forms.ValidationError("Enter a valid blood pressure in the format systolic/diastolic (e.g., 120/80).")
 
+        systolic, diastolic = map(int, bp.split('/'))
+
+        if systolic <= diastolic:
+            raise forms.ValidationError("Systolic BP must be greater than Diastolic BP.")
+        
+        return bp 
 class AddScreening(ModelForm):
     class Meta:
         model = Screening

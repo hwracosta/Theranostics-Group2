@@ -25,7 +25,16 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>{{ form.bp | as_crispy_field }}</td>
+                                    <td>
+                                        {{ form.bp | as_crispy_field }}
+                                        {% if form.bp.errors %}
+                                            <ul class="error-list">
+                                                {% for error in form.bp.errors %}
+                                                    <li>{{ error }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    </td>
                                     <td>{{ form.hr | as_crispy_field }}</td>
                                 </tr>
                                 <tr>
@@ -62,6 +71,12 @@
                 bmiField.value = ''; 
             }
         }
+    });
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('id_bp').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^0-9\/]/g, '');  
+        });
     });
 </script>
 {% endblock content %}
