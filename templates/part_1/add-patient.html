@@ -22,7 +22,10 @@
                                         <tr>{{ form.address | as_crispy_field }}</tr>
                                         <tr>{{ form.diagnosis_date | as_crispy_field }}</tr>
                                         <tr class="col-sm">{{ form.surgery_date | as_crispy_field }}</tr>
-                                        <tr>{{ form.histopath_result | as_crispy_field }}</tr>
+                                        <tr>
+                                            <td><label for="histopath_result">Upload Histopath Results:</label></td>
+                                            <td><input type="file" name="histopath_result" id="histopath_result" multiple></td> <!--not using {{ form.histopath_result }} is the cause of the image not reflecting in the db-->
+                                        </tr>
                                         <tr>{{ form.histopath_details | as_crispy_field }}</tr>
                                         <tr>{{ form.gleason_score | as_crispy_field }}</tr>
                                         <tr>{{ form.date_of_treatment | as_crispy_field }}</tr>

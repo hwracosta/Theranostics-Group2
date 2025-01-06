@@ -13,27 +13,35 @@ class Patient(models.Model):
         ('Chemotherapy', 'Chemotherapy'),
         ('Others', 'Others'),
     )
-    #Test results and others are put to a different model
-    name = models.CharField(max_length=120, blank= False, null=True)
+    name = models.CharField(max_length=120, blank=False, null=True)
     slug = models.SlugField(null=True)
-    age = models.IntegerField(blank= False, validators= [MinValueValidator(0, message="Value cannot be negative.")])
+    age = models.IntegerField(blank=False, validators=[MinValueValidator(0, message="Value cannot be negative.")])
     address = models.CharField(max_length=300)
     diagnosis_date = models.DateField()
     surgery_date = models.DateField()
-    histopath_result = models.ImageField(upload_to="images/")
+    histopath_result = models.ImageField(upload_to="images/", blank=True, null=True)  
     histopath_details = models.TextField(max_length=200, blank=False, null=True)
-    gleason_score = models.IntegerField(blank=True, null=True, validators= [MinValueValidator(6, message="Value should be 6-10."), MaxValueValidator(10, message="Value should be 6-10.")])
+    gleason_score = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(6, message="Value should be 6-10."), MaxValueValidator(10, message="Value should be 6-10.")])
     date_of_treatment = models.DateField()
     type_of_treatment = models.CharField(max_length=120, choices=TYPE_TREATMENT)
 
     def __str__(self): 
         return self.name
 
-    #auto-add slugs
+    # Auto-add slugs
     def save(self, *args, **kwargs):  
         if not self.slug:
             self.slug = slugify(self.name)
         return super().save(*args, **kwargs)
+
+
+class PatientImage(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to="patient_images/")
+    description = models.CharField(max_length=255, blank=True, null=True)
+
+    def __str__(self):
+        return f"Image for {self.patient.name}"
 
 class PhysicalExam(models.Model):
     id = models.AutoField(primary_key=True)
