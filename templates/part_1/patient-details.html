@@ -19,13 +19,20 @@
                 <li>Patient Details: {{ patient.histopath_details }}</li>
             </ul>
         </div>
+        <!-- Histopath Result -->
         <div class="col">
+            <h3>Histopath Result</h3>
             {% if patient.histopath_result %}
-            <h3>Histopath Result</h3> <img src="{{ patient.histopath_result.url }}" alt="" width="400" style="border-radius: 5px; border: solid maroon;"></li>
+            <div style="max-height:400px; overflow-x: auto; white-space: nowrap; border: 5px solid maroon; padding: 10px; border-radius: 5px;">
+                <div style="display: inline-block; margin-right: 10px;">
+                    <img src="{{ patient.histopath_result.url }}" alt="Histopath Image" height="100%" width="100%">
+                </div>
+            </div>
             {% endif %}
         </div>
     </div>
 </div>
+
 <div class = "container mt-1" style="display: inline;">
     <div class = "row overflow-auto border border-dark pb-5 shadow" style="height: 500px; background-color: rgb(245, 245, 245);">
         <div class = "col">
@@ -344,19 +351,39 @@
         <div class = "col">
                 {% if screening %}
                     <h4 class="mt-2">Salivary Gland</h4>
-                    <img src="{{ screening.salivary_gland_image.url }}" alt="" width="200" style="border-radius: 5px; border: solid maroon;">
+                    <div style="overflow-x: auto; white-space: nowrap;">
+                        <div style="display: inline-block; margin-right: 10px;">
+                            <img src="{{ screening.salivary_gland_image.url }}" alt="" width="200" style="border-radius: 5px; border: solid maroon;">
+                        </div>
+                    </div>
 
                     <h4 class="mt-2">Bone Scan</h4>
-                    <img src="{{ screening.bone_scan_image.url }}" alt="" width="200" style="border-radius: 5px; border: solid maroon;">
+                    <div style="overflow-x: auto; white-space: nowrap;">
+                        <div style="display: inline-block; margin-right: 10px;">
+                            <img src="{{ screening.bone_scan_image.url }}" alt="" width="200" style="border-radius: 5px; border: solid maroon;">
+                        </div>
+                    </div>
 
                     <h4 class="mt-2">Renal Scintigraphy</h4>
-                    <img src="{{ screening.renal_scintigraphy.url }}" alt="" width="200" style="border-radius: 5px; border: solid maroon;">
+                    <div style="overflow-x: auto; white-space: nowrap;">
+                        <div style="display: inline-block; margin-right: 10px;">
+                            <img src="{{ screening.renal_scintigraphy.url }}" alt="" width="200" style="border-radius: 5px; border: solid maroon;">
+                        </div>
+                    </div>
 
                     <h4 class="mt-2">GAPSMA</h4>
-                    <img src="{{ screening.gapsma_img.url }}" alt="" width="200" style="border-radius: 5px; border: solid maroon;">
+                    <div style="overflow-x: auto; white-space: nowrap;">
+                        <div style="display: inline-block; margin-right: 10px;">
+                            <img src="{{ screening.gapsma_img.url }}" alt="" width="200" style="border-radius: 5px; border: solid maroon;">
+                        </div>
+                    </div>
 
                     <h4 class="mt-2">FDG PET/CT</h4>
-                    <img src="{{ screening.fdgpetct_img.url }}" alt="" width="200" style="border-radius: 5px; border: solid maroon;">
+                    <div style="overflow-x: auto; white-space: nowrap;">
+                        <div style="display: inline-block; margin-right: 10px;">
+                            <img src="{{ screening.fdgpetct_img.url }}" alt="" width="200" style="border-radius: 5px; border: solid maroon;">
+                        </div>
+                    </div>
 
                     
                 
@@ -422,10 +449,20 @@
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <h5>Lesion Image</h5> 
-                                            <img src="{{ post_therapy.lesion_image.url }}" alt="" width="200" style="border-radius: 5px; border: solid maroon;">
+                                            <h5>Lesion Image</h5>
+                                            <div style="overflow-x: auto; white-space: nowrap;">
+                                                <div style="display: inline-block; margin-right: 10px;">
+                                                    <img src="{{ post_therapy.lesion_image.url }}" alt="" width="200" style="border-radius: 5px; border: solid maroon;">
+                                                </div>
+                                            </div> 
+                                            
                                             <h5>Dosimetry Image</h5>
-                                            <img src="{{ post_therapy.dosimetry_image.url }}" alt="" width="200" style="border-radius: 5px; border: solid maroon;">
+                                            <div style="overflow-x: auto; white-space: nowrap;">
+                                                <div style="display: inline-block; margin-right: 10px;">
+                                                    <img src="{{ post_therapy.dosimetry_image.url }}" alt="" width="200" style="border-radius: 5px; border: solid maroon;">
+                                                </div>
+                                            </div>
+                                            
                                             <br>
                                         </div>
                                     </div>
@@ -647,20 +684,40 @@
                                         <div class = "col">
                                                 {% if follow_up %}
                                                     <h4 class="mt-2">Salivary Gland</h4>
-                                                    <img src="{{ follow_up.salivary_gland_image.url }}" alt="" width="200" style="border-radius: 5px; border: solid maroon;">
+                                                    <div style="overflow-x: auto; white-space: nowrap;">
+                                                        <div style="display: inline-block; margin-right: 10px;">
+                                                            <img src="{{ follow_up.salivary_gland_image.url }}" alt="" width="200" style="border-radius: 5px; border: solid maroon;">
+                                                        </div>
+                                                    </div>
                                 
                                                     <h4 class="mt-2">Bone Scan</h4>
-                                                    <img src="{{ follow_up.bone_scan_image.url }}" alt="" width="200" style="border-radius: 5px; border: solid maroon;">
-                                
+                                                    <div style="overflow-x: auto; white-space: nowrap;">
+                                                        <div style="display: inline-block; margin-right: 10px;">
+                                                            <img src="{{ follow_up.bone_scan_image.url }}" alt="" width="200" style="border-radius: 5px; border: solid maroon;">
+                                                        </div>
+                                                    </div>
+                                                    
                                                     <h4 class="mt-2">Renal Scintigraphy</h4>
-                                                    <img src="{{ follow_up.renal_scintigraphy.url }}" alt="" width="200" style="border-radius: 5px; border: solid maroon;">
-                                
+                                                    <div style="overflow-x: auto; white-space: nowrap;">
+                                                        <div style="display: inline-block; margin-right: 10px;">
+                                                            <img src="{{ follow_up.renal_scintigraphy.url }}" alt="" width="200" style="border-radius: 5px; border: solid maroon;">
+                                                        </div>
+                                                    </div>
+                                                    
                                                     <h4 class="mt-2">GAPSMA</h4>
-                                                    <img src="{{ follow_up.gapsma_img.url }}" alt="" width="200" style="border-radius: 5px; border: solid maroon;">
-                                
+                                                    <div style="overflow-x: auto; white-space: nowrap;">
+                                                        <div style="display: inline-block; margin-right: 10px;">
+                                                            <img src="{{ follow_up.gapsma_img.url }}" alt="" width="200" style="border-radius: 5px; border: solid maroon;">
+                                                        </div>
+                                                    </div>
+                                                    
                                                     <h4 class="mt-2">FDG PET/CT</h4>
-                                                    <img src="{{ follow_up.fdgpetct_img.url }}" alt="" width="200" style="border-radius: 5px; border: solid maroon;">
-                                                {% endif %}
+                                                    <div style="overflow-x: auto; white-space: nowrap;">
+                                                        <div style="display: inline-block; margin-right: 10px;">
+                                                            <img src="{{ follow_up.fdgpetct_img.url }}" alt="" width="200" style="border-radius: 5px; border: solid maroon;">
+                                                        </div>
+                                                    </div>
+                                               {% endif %}
                                         </div>
                                     </div>
                                 {% endif %}
