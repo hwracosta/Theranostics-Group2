@@ -4,7 +4,7 @@ from django import forms
 from django.forms import ModelChoiceField, ModelForm
 
 # ADDING DATA
-class AddPatientForm(forms.ModelForm):
+class AddPatient(ModelForm):
     class Meta:
         model = Patient
         fields = ['name', 'age', 'address', 'diagnosis_date', 'surgery_date', 'histopath_result', 'histopath_details', 'gleason_score', 'date_of_treatment', 'type_of_treatment']
@@ -13,11 +13,6 @@ class AddPatientForm(forms.ModelForm):
             'surgery_date': forms.DateInput(attrs={'type': 'date'}),
             'date_of_treatment': forms.DateInput(attrs={'type': 'date'}),
         }
-
-class PatientImageForm(forms.ModelForm):
-    class Meta:
-        model = PatientImage
-        fields = ['image', 'description']
         
 
 class EditPatient(ModelForm):

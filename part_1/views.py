@@ -302,29 +302,14 @@ def patientSearch(request):
 
 @login_required
 def addPatient(request):
+    form = AddPatient()
     if request.method == "POST":
-        form = AddPatientForm(request.POST, request.FILES)
+        form = AddPatient(request.POST, request.FILES)
         if form.is_valid():
-            # Save the patient first
-            patient = form.save()
-
-            # Handle the single image for histopath_result
-            if 'histopath_result' in request.FILES:
-                patient.histopath_result = request.FILES['histopath_result']
-                patient.save()
-
-            # Handle multiple images
-            if 'images' in request.FILES:
-                images = request.FILES.getlist('images')
-                for image in images:
-                    PatientImage.objects.create(patient=patient, image=image)
-
+            form.save()
             return redirect('patientList')
-    else:
-        form = AddPatientForm()
-
-    context = {'form': form}
-    return render(request, 'part_1/add-patient.html', context)
+    context={'form':form}
+    return render(request,"part_1/add-patient.html", context)
 
 @login_required
 def editPatient(request, slug):
